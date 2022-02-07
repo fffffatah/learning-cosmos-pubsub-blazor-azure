@@ -1,0 +1,55 @@
+﻿@page "/users"
+
+<PageTitle>All Users</PageTitle>
+@using UMSDemo.Data;
+@using EntityLayer;
+@inject UserService _UserService
+
+@if (users == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+                <th>Delete</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in users)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Name</td>
+                    <td>@user.Address</td>
+                    <td>@user.CreatedAt</td>
+                    <td>@user.UpdatedAt</td>
+                    <td><button @onclick="(() => HandleDelete(user.Id))">Delete</button></td>
+                    <td><a href="/update/@user.Id">Edit</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<User>? users;
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = _UserService.GetUsers();
+    }
+
+    private void HandleDelete(Guid id)
+    {
+        _UserService.DeleteUser(id);
+    }
+}

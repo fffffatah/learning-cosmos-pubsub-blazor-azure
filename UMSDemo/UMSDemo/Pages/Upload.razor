@@ -1,0 +1,46 @@
+﻿@page "/upload"
+
+<PageTitle>Upload File/ File List</PageTitle>
+@using UMSDemo.Data;
+@using BusinessLogic;
+@using EntityLayer;
+@inject FileService _FileService;
+
+<h3>Upload</h3>
+
+<EditForm Model=@file OnValidSubmit="@HandleUpload">
+    <InputFile OnChange="@LoadFile"/>
+    <button id="uploadButton" type="submit" disabled=@ButtonContext()>Upload</button>
+</EditForm>
+<progress hidden=@progressContext></progress>
+
+@code{
+    //UPLOAD FILES
+    private File? file = new();
+    private IBrowserFile browserFile = null;
+    private bool progressContext = true;
+
+    private bool ButtonContext()
+    {
+        return (browserFile == null);
+    }
+
+    private void LoadFile(InputFileChangeEventArgs e)
+    {
+        browserFile = e.File;
+    }
+
+    private async Task HandleUpload()
+    {
+        progressContext = false;
+        string uri = await _FileService.Upload(browserFile);
+        if(uri != "")
+        {
+            file.Id = Guid.NewGuid();
+            file.Uri = uri;
+            file.Name = browserFile.Name;
+            _FileService.AddFile(file);
+        }
+        progressContext = true;
+    }
+}

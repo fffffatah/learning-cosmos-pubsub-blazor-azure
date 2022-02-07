@@ -1,0 +1,32 @@
+﻿@page "/update/{id}"
+<PageTitle>Update User</PageTitle>
+@using EntityLayer;
+@using UMSDemo.Data;
+@inject UserService _UserService;
+
+<h3>Update</h3>
+
+@functions{
+    [Parameter]
+    public string? Id { get; set; }
+}
+
+<EditForm Model="@user" OnValidSubmit="@HandleEdit">
+    <InputText @bind-Value="user.Name"/><br /><br />
+    <InputText @bind-Value="user.Address"/><br /><br />
+    <button type="submit">Update</button>
+</EditForm>
+
+@code {
+    private User? user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = _UserService.Get(Guid.Parse(Id));
+    }
+
+    private void HandleEdit()
+    {
+        _UserService.Update(user);
+    }
+}

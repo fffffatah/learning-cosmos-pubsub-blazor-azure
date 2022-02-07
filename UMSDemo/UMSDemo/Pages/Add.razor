@@ -1,0 +1,22 @@
+﻿@page "/adduser"
+
+<PageTitle>Add User</PageTitle>
+@using EntityLayer;
+@using UMSDemo.Data;
+@inject UserService _UserService
+
+<h1>Add New User</h1>
+
+<EditForm Model="@user" OnValidSubmit="@HandleSubmit">
+    <InputText @bind-Value="user.Name"/><br /><br />
+    <InputText @bind-Value="user.Address"/><br /><br />
+    <button type="submit">Add</button>
+</EditForm>
+
+@code {
+    private User user = new();
+
+    private void HandleSubmit(){
+        _UserService.AddUser(user);
+    }
+}

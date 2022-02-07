@@ -1,0 +1,55 @@
+﻿@page "/files"
+<PageTitle>File List</PageTitle>
+@using UMSDemo.Data;
+@using BusinessLogic;
+@using EntityLayer;
+@inject FileService _FileService;
+
+<h3>Files</h3>
+@if (files == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Download</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var file in files)
+            {
+                <tr>
+                    <td>@file.Id</td>
+                    <td>@file.Name</td>
+                    <td><a href="@file.Uri" download>Download</a></td>
+                    <td><button @onclick="(() => HandleDelete(file.Id, file.Name))">Delete</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <progress hidden=@progressContext></progress>
+}
+@code {
+    //LIST FILES
+    private List<File>? files;
+    private bool progressContext = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        files = _FileService.GetFiles();
+    }
+
+    private async Task HandleDelete(Guid id, string fileName)
+    {
+        progressContext = false;
+        await _FileService.Delete(fileName);
+        _FileService.DeleteFile(id);
+        progressContext = true;
+    }
+}
