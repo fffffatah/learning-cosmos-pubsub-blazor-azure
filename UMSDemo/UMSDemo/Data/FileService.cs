@@ -14,29 +14,29 @@ namespace UMSDemo.Data
         {
             return await new BlobProvider().DeleteFromBlobAsync(fileName);
         }
-        public List<EntityLayer.File> GetFiles()
+        public async Task<List<EntityLayer.File>> GetFiles()
         {
-            return FileLogic.GetAll();
+            return await FileLogic.GetAll();
         }
 
-        public EntityLayer.File Get(Guid id)
+        public async Task<EntityLayer.File> Get(Guid id)
         {
-            return FileLogic.Get(id);
+            return await FileLogic.Get(id);
         }
 
-        public bool Update(EntityLayer.File file)
+        public async Task<bool> Update(EntityLayer.File file)
         {
-            return FileLogic.Update(file);
+            return await FileLogic.Update(file);
         }
 
-        public bool AddFile(EntityLayer.File file)
+        public async Task<bool> AddFile(EntityLayer.File file)
         {
-            return FileLogic.Add(file);
+            return await FileLogic.Add(file);
         }
 
-        public bool DeleteFile(Guid id)
+        public async Task<bool> DeleteFile(Guid id)
         {
-            return FileLogic.Delete(id);
+            return await FileLogic.Delete(id);
         }
     }
 }

@@ -16,7 +16,7 @@
 @code {
     private User user = new();
 
-    private void HandleSubmit(){
-        _UserService.AddUser(user);
+    private async Task HandleSubmit(){
+        await _UserService.AddUser(user);
     }
 }

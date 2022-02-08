@@ -9,10 +9,10 @@ namespace DataAccess
 {
     public interface IRepo<T, ID>
     {
-        bool Add(T entity);
-        bool Update(T entity);
-        bool Delete(ID id);
-        List<T> GetAll();
-        T Get(ID id);
+        Task<bool> Add(T entity);
+        Task<bool> Update(T entity);
+        Task<bool> Delete(ID id);
+        Task<List<T>> GetAll();
+        Task<T> Get(ID id);
     }
 }

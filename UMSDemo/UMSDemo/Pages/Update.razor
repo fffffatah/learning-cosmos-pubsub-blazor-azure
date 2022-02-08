@@ -1,4 +1,4 @@
-﻿@page "/update/{id}"
+﻿@page "/update/{id?}"
 <PageTitle>Update User</PageTitle>
 @using EntityLayer;
 @using UMSDemo.Data;
@@ -22,11 +22,11 @@
 
     protected override async Task OnInitializedAsync()
     {
-        user = _UserService.Get(Guid.Parse(Id));
+        user = await _UserService.Get(Guid.Parse(Id));
     }
 
-    private void HandleEdit()
+    private async Task HandleEdit()
     {
-        _UserService.Update(user);
+        await _UserService.Update(user);
     }
 }

@@ -5,29 +5,29 @@ namespace UMSDemo.Data
 {
     public class UserService
     {
-        public List<User> GetUsers()
+        public async Task<List<User>> GetUsers()
         {
-            return UserLogic.GetAll();
+            return await UserLogic.GetAll();
         }
 
-        public User Get(Guid id)
+        public async Task<User> Get(Guid id)
         {
-            return UserLogic.Get(id);
+            return await UserLogic.Get(id);
         }
 
-        public bool Update(User user)
+        public async Task<bool> Update(User user)
         {
-            return UserLogic.Update(user);
+            return await UserLogic.Update(user);
         }
 
-        public bool AddUser(User user)
+        public async Task<bool> AddUser(User user)
         {
-            return UserLogic.Add(user);
+            return await UserLogic.Add(user);
         }
 
-        public bool DeleteUser(Guid id)
+        public async Task<bool> DeleteUser(Guid id)
         {
-            return UserLogic.Delete(id);
+            return await UserLogic.Delete(id);
         }
     }
 }

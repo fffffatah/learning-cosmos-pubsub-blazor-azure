@@ -45,11 +45,11 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        users = _UserService.GetUsers();
+        users = await _UserService.GetUsers();
     }
 
-    private void HandleDelete(Guid id)
+    private async Task HandleDelete(Guid id)
     {
-        _UserService.DeleteUser(id);
+        await _UserService.DeleteUser(id);
     }
 }

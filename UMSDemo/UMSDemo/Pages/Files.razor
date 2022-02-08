@@ -42,14 +42,14 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        files = _FileService.GetFiles();
+        files = await _FileService.GetFiles();
     }
 
     private async Task HandleDelete(Guid id, string fileName)
     {
         progressContext = false;
         await _FileService.Delete(fileName);
-        _FileService.DeleteFile(id);
+        await _FileService.DeleteFile(id);
         progressContext = true;
     }
 }

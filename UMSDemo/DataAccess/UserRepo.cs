@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EntityLayer;
 using DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess
 {
@@ -15,33 +16,33 @@ namespace DataAccess
         {
             _cosmosContext = cosmosContext;
         }
-        public bool Add(User entity)
+        public async Task<bool> Add(User entity)
         {
             _cosmosContext.Add(entity);
-            return (_cosmosContext.SaveChanges() > 0);
+            return (await _cosmosContext.SaveChangesAsync() > 0);
         }
 
-        public bool Delete(Guid id)
+        public async Task<bool> Delete(Guid id)
         {
             var user = (from u in _cosmosContext.Users where u.Id == id select u).FirstOrDefault();
             _cosmosContext.Remove(user);
-            return (_cosmosContext.SaveChanges() > 0);
+            return (await _cosmosContext.SaveChangesAsync() > 0);
         }
 
-        public User Get(Guid id)
+        public async Task<User> Get(Guid id)
         {
-            return (from u in _cosmosContext.Users where u.Id == id select u).FirstOrDefault();
+            return await (from u in _cosmosContext.Users where u.Id == id select u).FirstOrDefaultAsync();
         }
 
-        public List<User> GetAll()
+        public async Task<List<User>> GetAll()
         {
-            return _cosmosContext.Users.ToList();
+            return await _cosmosContext.Users.ToListAsync();
         }
 
-        public bool Update(User entity)
+        public async Task<bool> Update(User entity)
         {
             _cosmosContext.Update(entity);
-            return (_cosmosContext.SaveChanges() > 0);
+            return (await _cosmosContext.SaveChangesAsync() > 0);
         }
     }
 }

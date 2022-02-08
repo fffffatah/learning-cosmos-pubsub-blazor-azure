@@ -9,25 +9,25 @@ namespace BusinessLogic
 {
     public class FileLogic
     {
-        public static bool Add(EntityLayer.File file)
+        public static async Task<bool> Add(EntityLayer.File file)
         {
-            return Repository.FileDataAccess().Add(file);
+            return await Repository.FileDataAccess().Add(file);
         }
-        public static bool Update(EntityLayer.File file)
+        public static async Task<bool> Update(EntityLayer.File file)
         {
-            return Repository.FileDataAccess().Update(file);
+            return await Repository.FileDataAccess().Update(file);
         }
-        public static List<EntityLayer.File> GetAll()
+        public static async Task<List<EntityLayer.File>> GetAll()
         {
-            return Repository.FileDataAccess().GetAll();
+            return await Repository.FileDataAccess().GetAll();
         }
-        public static EntityLayer.File Get(Guid id)
+        public static async Task<EntityLayer.File> Get(Guid id)
         {
-            return Repository.FileDataAccess().Get(id);
+            return await Repository.FileDataAccess().Get(id);
         }
-        public static bool Delete(Guid id)
+        public static async Task<bool> Delete(Guid id)
         {
-            return Repository.FileDataAccess().Delete(id);
+            return await Repository.FileDataAccess().Delete(id);
         }
     }
 }

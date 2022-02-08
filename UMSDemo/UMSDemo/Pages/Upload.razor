@@ -39,7 +39,7 @@
             file.Id = Guid.NewGuid();
             file.Uri = uri;
             file.Name = browserFile.Name;
-            _FileService.AddFile(file);
+            await _FileService.AddFile(file);
         }
         progressContext = true;
     }
