@@ -1,0 +1,15 @@
+C:\Users\BS360\Desktop\TrieDS\bin\Debug\net6.0\TrieDS.exe
+C:\Users\BS360\Desktop\TrieDS\bin\Debug\net6.0\TrieDS.deps.json
+C:\Users\BS360\Desktop\TrieDS\bin\Debug\net6.0\TrieDS.runtimeconfig.json
+C:\Users\BS360\Desktop\TrieDS\bin\Debug\net6.0\TrieDS.dll
+C:\Users\BS360\Desktop\TrieDS\bin\Debug\net6.0\ref\TrieDS.dll
+C:\Users\BS360\Desktop\TrieDS\bin\Debug\net6.0\TrieDS.pdb
+C:\Users\BS360\Desktop\TrieDS\obj\Debug\net6.0\TrieDS.csproj.AssemblyReference.cache
+C:\Users\BS360\Desktop\TrieDS\obj\Debug\net6.0\TrieDS.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\BS360\Desktop\TrieDS\obj\Debug\net6.0\TrieDS.AssemblyInfoInputs.cache
+C:\Users\BS360\Desktop\TrieDS\obj\Debug\net6.0\TrieDS.AssemblyInfo.cs
+C:\Users\BS360\Desktop\TrieDS\obj\Debug\net6.0\TrieDS.csproj.CoreCompileInputs.cache
+C:\Users\BS360\Desktop\TrieDS\obj\Debug\net6.0\TrieDS.dll
+C:\Users\BS360\Desktop\TrieDS\obj\Debug\net6.0\ref\TrieDS.dll
+C:\Users\BS360\Desktop\TrieDS\obj\Debug\net6.0\TrieDS.pdb
+C:\Users\BS360\Desktop\TrieDS\obj\Debug\net6.0\TrieDS.genruntimeconfig.cache
