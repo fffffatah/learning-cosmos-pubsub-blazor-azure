@@ -1,0 +1,28 @@
+﻿@page "/signup"
+
+<PageTitle>Signup</PageTitle>
+
+@using EntityLayer
+@inject UserService _userService
+
+<h3>Signup</h3>
+
+<EditForm Model="@user" OnValidSubmit="@HandleRegistration">
+    <DataAnnotationsValidator /> 
+    <ValidationSummary/>
+    <div style="width:500px">
+    <InputText class="form-control" placeholder="Username" @bind-Value="user.Username"/><br />
+    <InputText class="form-control" placeholder="Name" @bind-Value="user.Name"/><br />
+    <InputText class="form-control" type="password" placeholder="Pass" @bind-Value="user.Pass"/><br />
+    <InputText class="form-control" type="password" placeholder="Confirm Pass" @bind-Value="user.ConfirmPass"/><br />
+    <button class="btn btn-outline-success" type="submit">Sign Up</button>
+    </div>
+</EditForm>
+
+@code {
+    private UserRegistrationModel? user = new();
+    private async Task HandleRegistration()
+    {
+        await _userService.CreateUserAsync(user);
+    }
+}

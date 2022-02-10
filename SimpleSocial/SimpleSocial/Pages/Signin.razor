@@ -1,0 +1,28 @@
+﻿@page "/signin"
+
+<PageTitle>Sign In</PageTitle>
+
+@using EntityLayer
+@inject UserService _userService
+
+<h3>Signin</h3>
+
+<EditForm Model="@user" OnValidSubmit="@HandleLogin">
+    <DataAnnotationsValidator /> 
+    <ValidationSummary/>
+    <div style="width:500px">
+    <InputText placeholder="Username" class="form-control form-control-sm" @bind-Value="user.Username"/><br />
+    <InputText type="password" placeholder="Pass" class="form-control form-control-sm" @bind-Value="user.Pass"/><br />
+    <button class="btn btn-outline-primary" type="submit">Signin</button>
+    </div>
+</EditForm>
+
+@code {
+    private UserLoginModel? user = new();
+    private void HandleLogin()
+    {
+        Console.WriteLine("Valid Form");
+        Console.WriteLine("Username: {0}",user.Username);
+        Console.WriteLine("Pass: {0}", user.Pass);
+    }
+}

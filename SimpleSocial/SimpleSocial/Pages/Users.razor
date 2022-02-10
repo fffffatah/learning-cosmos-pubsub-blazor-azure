@@ -1,0 +1,59 @@
+﻿@page "/users"
+
+<PageTitle>All Users</PageTitle>
+
+@using EntityLayer;
+@inject UserService _userService
+
+@if (users == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Type</th>
+                <th>Delete</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in users)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Name</td>
+                    <td>@user.Username</td>
+                    @if (user.IsAdmin)
+                    {
+                        <td>Admin</td>
+                        <td><button @onclick="(() => HandleDelete(user.Id))">Delete</button></td>
+                        <td><a href="/update/@user.Id">Edit</a></td>
+                    }
+                    else{
+                        <td>User</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<User>? users;
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = await _userService.GetUsersAsync();
+    }
+
+    private async Task HandleDelete(Guid id)
+    {
+        await _userService.DeleteUserAsync(id);
+    }
+}
