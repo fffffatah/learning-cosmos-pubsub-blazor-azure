@@ -6,7 +6,7 @@ class Program
 {
     public static async Task Main(string[] args)
     {
-        var connectionString = "Endpoint=https://fffffatah.webpubsub.azure.com;AccessKey=4rxRv695jTc0HY8l2eRYigyo1RoYJKgIlGlW+adGNVU=;Version=1.0;";
+        var connectionString = Environment.GetEnvironmentVariable("PUBSUB_ENDPOINT");
         var hub = "Hub";
 
         // Either generate the URL or fetch it from server or fetch a temp one from the portal
