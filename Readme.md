@@ -2,6 +2,10 @@
 
 Learning Blazor, CosmosDB, Azure PubSub, Azure Storage, and others 😊
 
+# PubSubDemo
+
+An Azure PubSub Demo API
+
 # UMS Demo
 
 Perform simple CRUD operations on User and File entity using Blazor Server, CosmosDB SQL API, EFCore. Also upload files to Azure Blob Storage.
