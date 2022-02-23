@@ -49,6 +49,32 @@ namespace PubSubDemo.Controllers
             await MessageLogic.AddMessageAsync(msg);
             return Ok(new { Message = $"Sent To {msg.Receiver}", Code = "200", Status = "Ok" });
         }
+        /// <summary>
+        /// AddUserToGroup is actually a quick way to add current connections for this user to the group
+        /// which means, if a connection for userA connects after the AddUserToGroup(GroupA) call,
+        /// this new connection is not joined to GroupA automatically. So actually the user can have a situation
+        /// where some connections for userA belong to groupA while other connections for userA are not.
+        /// </summary>
+        [Route("add/user/to/group")]
+        [HttpGet]
+        public async Task<ActionResult> AddUserToGroup(string username, string groupname)
+        {
+            var connectionString = Environment.GetEnvironmentVariable("PUBSUB_ENDPOINT_BS");
+            var hub = "chat";
+            var serviceClient = new WebPubSubServiceClient(connectionString, hub);
+            await serviceClient.AddUserToGroupAsync(group: groupname, userId: username);
+            return Ok(new { Message = $"Added {username} To {groupname}", Code = "200", Status = "Ok" });
+        }
+        [Route("add/connection/to/group")]
+        [HttpGet]
+        public async Task<ActionResult> AddConnectionToGroup(string connectionid, string groupname)
+        {
+            var connectionString = Environment.GetEnvironmentVariable("PUBSUB_ENDPOINT_BS");
+            var hub = "chat";
+            var serviceClient = new WebPubSubServiceClient(connectionString, hub);
+            await serviceClient.AddConnectionToGroupAsync(group: groupname, connectionId: connectionid);
+            return Ok(new { Message = $"Added Connection To {groupname}", Code = "200", Status = "Ok" });
+        }
         [Route("send/to/group")]
         [HttpPost]
         public async Task<ActionResult> SendToGroup([FromForm] Message msg, string groupname)
