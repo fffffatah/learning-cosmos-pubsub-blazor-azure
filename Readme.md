@@ -17,7 +17,3 @@ Simple social app using Blazor Server, Azure PubSub (Chat), CosmosDB and EFCore.
 # TrieDS
 
 Implementation of the Trie Data Structure.
-
-# PubSubSendToAllDemo
-
-Simple Azure PubSub demo that sends message to all the clients connected to a hub
