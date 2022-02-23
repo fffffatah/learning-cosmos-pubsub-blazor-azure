@@ -10,7 +10,7 @@ namespace DataAccessLayer
     public class Factory
     {
         static CosmosContext _db;
-        public Factory()
+        static Factory()
         {
             _db = new CosmosContext();
         }

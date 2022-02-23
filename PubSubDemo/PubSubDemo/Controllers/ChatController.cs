@@ -46,7 +46,7 @@ namespace PubSubDemo.Controllers
             var serviceClient = new WebPubSubServiceClient(connectionString, hub);
             await serviceClient.SendToUserAsync(userId: msg.Receiver, $"[{msg.Sender}] {msg.Text}");
             //Add Message To CosmosDb
-            //await MessageLogic.AddMessageAsync(msg);
+            await MessageLogic.AddMessageAsync(msg);
             return Ok(new { Message = $"Sent To {msg.Receiver}", Code = "200", Status = "Ok" });
         }
         [Route("send/to/group")]

@@ -7,6 +7,7 @@ namespace BusinessLogicLayer
     {
         public static async Task<bool> AddMessageAsync(Message message)
         {
+            message.Id = Guid.NewGuid().ToString();
             return await Factory.MessageDataAccess().CreateAsync(message);
         }
         public static async Task<List<Message>> GetMessagesAsync(string sender, string receiver)
