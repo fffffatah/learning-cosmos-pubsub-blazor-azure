@@ -20,7 +20,7 @@ namespace PubSubDemo.Controllers
         [HttpGet]
         public async Task<ActionResult> GetUri(string Username)
         {
-            var connectionString = Environment.GetEnvironmentVariable("PUBSUB_ENDPOINT");
+            var connectionString = Environment.GetEnvironmentVariable("PUBSUB_ENDPOINT_BS");
             var hub = "chat";
             var serviceClient = new WebPubSubServiceClient(connectionString, hub);
             var url = await serviceClient.GetClientAccessUriAsync(userId: Username);
@@ -31,7 +31,7 @@ namespace PubSubDemo.Controllers
         [HttpPost]
         public async Task<ActionResult> SendToAll([FromForm]Message msg)
         {
-            var connectionString = Environment.GetEnvironmentVariable("PUBSUB_ENDPOINT");
+            var connectionString = Environment.GetEnvironmentVariable("PUBSUB_ENDPOINT_BS");
             var hub = "chat";
             var serviceClient = new WebPubSubServiceClient(connectionString, hub);
             await serviceClient.SendToAllAsync($"[{msg.Sender}] {msg.Text}");
@@ -41,7 +41,7 @@ namespace PubSubDemo.Controllers
         [HttpPost]
         public async Task<ActionResult> SendToUser([FromForm] Message msg)
         {
-            var connectionString = Environment.GetEnvironmentVariable("PUBSUB_ENDPOINT");
+            var connectionString = Environment.GetEnvironmentVariable("PUBSUB_ENDPOINT_BS");
             var hub = "chat";
             var serviceClient = new WebPubSubServiceClient(connectionString, hub);
             await serviceClient.SendToUserAsync(userId: msg.Receiver, $"[{msg.Sender}] {msg.Text}");
@@ -53,7 +53,7 @@ namespace PubSubDemo.Controllers
         [HttpPost]
         public async Task<ActionResult> SendToGroup([FromForm] Message msg, string groupname)
         {
-            var connectionString = Environment.GetEnvironmentVariable("PUBSUB_ENDPOINT");
+            var connectionString = Environment.GetEnvironmentVariable("PUBSUB_ENDPOINT_BS");
             var hub = "chat";
             var serviceClient = new WebPubSubServiceClient(connectionString, hub);
             await serviceClient.SendToGroupAsync(group: groupname, $"[{msg.Sender}] {msg.Text}");
