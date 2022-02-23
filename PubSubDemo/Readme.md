@@ -19,3 +19,5 @@ The client app is a simple console app that takes an access URI on first run and
 AddUserToGroup is actually a quick way to add current connections for this user to the group, which means, if a connection for userA connects after the AddUserToGroup(GroupA) call, this new connection is not joined to GroupA automatically. So actually the user can have a situation where some connections for userA belong to groupA while other connections for userA are not. [Read More](https://github.com/Azure/azure-webpubsub/issues/325)
 
 To add a single connection that belongs to a user, use AddConnectionToGroup/Async.
+
+More on [Creating Groups](https://github.com/Azure/azure-webpubsub/issues/319)
