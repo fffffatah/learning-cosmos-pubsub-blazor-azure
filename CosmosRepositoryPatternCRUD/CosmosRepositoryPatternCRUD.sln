@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CosmosRepositoryPatternCRUD", "CosmosRepositoryPatternCRUD\CosmosRepositoryPatternCRUD.csproj", "{2C9DF5EB-EF9B-4A3D-B60C-8D269C25553E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C9DF5EB-EF9B-4A3D-B60C-8D269C25553E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C9DF5EB-EF9B-4A3D-B60C-8D269C25553E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C9DF5EB-EF9B-4A3D-B60C-8D269C25553E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C9DF5EB-EF9B-4A3D-B60C-8D269C25553E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {47D1AC74-C639-40C8-88B8-BDFA48A61B6A}
+	EndGlobalSection
+EndGlobal
