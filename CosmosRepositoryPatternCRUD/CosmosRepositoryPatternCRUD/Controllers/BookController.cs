@@ -21,7 +21,7 @@ namespace CosmosRepositoryPatternCRUD.Controllers
         public async Task<ActionResult> AddBook([FromForm] Book book)
         {
             book.Id = Guid.NewGuid().ToString();
-            book.Type = "default";
+            book.Type = "Book";
             await _bookRepository.CreateAsync(book);
             return Ok(new { Code = "200", Status = "Ok", Data = "Book Added" });
         }
