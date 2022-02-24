@@ -35,9 +35,10 @@ namespace CosmosRepositoryPatternCRUD.Controllers
         [Route("get/book")]
         [HttpGet]
         public async Task<ActionResult<List<Book>>> GetBook(string bookid)
-        {
-            var books = await _bookRepository.GetByQueryAsync($"select * from container b where b.id='{bookid}'");
-            return Ok(new { Code = "200", Status = "Ok", Data = books });
+        { 
+            //var book = await _bookRepository.GetByQueryAsync($"select * from container b where b.id='{bookid}'");
+            var book = await _bookRepository.GetAsync(bookid);
+            return Ok(new { Code = "200", Status = "Ok", Data = book });
         }
         [Route("update/book")]
         [HttpPost]
