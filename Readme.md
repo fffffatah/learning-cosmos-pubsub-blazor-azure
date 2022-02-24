@@ -2,6 +2,11 @@
 
 Learning Blazor, CosmosDB, Azure PubSub, Azure Storage, and others 😊
 
+# CosmosRepositoryPatternCRUD
+
+This is a simple API demonstrating CosmosDB CRUD using 
+[IEvangelist.Azure.CosmosRepository](https://github.com/IEvangelist/azure-cosmos-dotnet-repository) package.
+
 # PubSubDemo
 
 An Azure PubSub Demo API
