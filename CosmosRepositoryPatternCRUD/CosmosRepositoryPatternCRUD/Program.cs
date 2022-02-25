@@ -1,3 +1,6 @@
+
+using CosmosRepositoryPatternCRUD.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,6 +16,13 @@ builder.Services.AddCosmosRepository(
             options.CosmosConnectionString = "AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
             //options.ContainerId = "data-store";
             options.DatabaseId = "fffffatah";
+            options.ContainerPerItemType = true;
+            options.OptimizeBandwidth = true;
+            //options.ContainerBuilder.Configure<Book>(userContainerOptions =>
+            //{
+            //    userContainerOptions.WithContainer("books");
+            //    userContainerOptions.WithPartitionKey("/genre");
+            //});
         });
 
 var app = builder.Build();
