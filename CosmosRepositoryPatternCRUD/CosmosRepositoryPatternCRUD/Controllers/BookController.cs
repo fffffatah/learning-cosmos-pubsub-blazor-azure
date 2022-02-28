@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.CosmosRepository;
 using CosmosRepositoryPatternCRUD.Models;
+using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace CosmosRepositoryPatternCRUD.Controllers
 {
@@ -27,10 +29,15 @@ namespace CosmosRepositoryPatternCRUD.Controllers
         }
         [Route("get/books")]
         [HttpGet]
-        public async Task<ActionResult<List<Book>>> GetBooks()
+        public async Task<ActionResult<List<Book>>> GetBooks([FromHeader]string ConToken, int pageSize)
         {
-            var books = await _bookRepository.GetByQueryAsync("select * from container");
-            return Ok(new { Code = "200", Status = "Ok", Data = books });
+            //var books = await _bookRepository.GetByQueryAsync("select * from container");
+            /// <summary>
+            /// The continuation token has to be the newest one each time fetching
+            /// the next 5 items. pageSize is the number of items to fetch.
+            /// </summary>
+            var page = await _bookRepository.PageAsync(pageSize: pageSize, continuationToken: (ConToken == "empty") ? null : Regex.Unescape(ConToken));
+            return Ok(new { Code = "200", Status = "Ok", Data = new { ItemCount = page.Total, ConToken = page.Continuation, Items = page.Items } });
         }
         [Route("get/book")]
         [HttpGet]
