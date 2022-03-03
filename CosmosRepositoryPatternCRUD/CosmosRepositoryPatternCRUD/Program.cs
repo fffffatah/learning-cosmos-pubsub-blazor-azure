@@ -13,6 +13,7 @@ builder.Services.AddCosmosRepository(
         options =>
         {
             //your cosmos db connection string
+            //options.CosmosConnectionString = Environment.GetEnvironmentVariable("COSMOS_STRING");
             options.CosmosConnectionString = "AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
             //options.ContainerId = "data-store";
             options.DatabaseId = "fffffatah";
@@ -22,6 +23,7 @@ builder.Services.AddCosmosRepository(
             //{
             //    userContainerOptions.WithContainer("books");
             //    userContainerOptions.WithPartitionKey("/genre");
+            //    userContainerOptions.WithChangeFeedMonitoring();
             //});
         });
 

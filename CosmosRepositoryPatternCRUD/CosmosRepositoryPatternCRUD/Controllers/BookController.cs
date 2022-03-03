@@ -4,6 +4,8 @@ using Microsoft.Azure.CosmosRepository;
 using CosmosRepositoryPatternCRUD.Models;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using Polly;
+using Polly.Retry;
 
 namespace CosmosRepositoryPatternCRUD.Controllers
 {
@@ -13,10 +15,12 @@ namespace CosmosRepositoryPatternCRUD.Controllers
     {
         ILogger<BookController> _logger;
         IRepository<Book> _bookRepository;
+        AsyncRetryPolicy<ActionResult> _retryPolicy;
         public BookController(ILogger<BookController> logger, IRepository<Book> bookRepository)
         {
             _bookRepository = bookRepository;
             _logger = logger;
+            _retryPolicy = Policy<ActionResult>.Handle<HttpRequestException>().RetryAsync(retryCount: 5);
         }
         [Route("add/book")]
         [HttpPost]
@@ -24,43 +28,62 @@ namespace CosmosRepositoryPatternCRUD.Controllers
         {
             book.Id = Guid.NewGuid().ToString();
             book.Type = "Book";
-            await _bookRepository.CreateAsync(book);
-            return Ok(new { Code = "200", Status = "Ok", Data = "Book Added" });
+            return await _retryPolicy.ExecuteAsync(async () =>
+            {
+                var res = await _bookRepository.CreateAsync(book);
+                if (res != null) return Ok(new { Code = "200", Status = "Ok", Data = "Book Added" });
+                return BadRequest(new { Code = "400", Status = "BadRequest", Data = "Unable to add book!" });
+            });
+            
         }
         [Route("get/books")]
         [HttpGet]
         public async Task<ActionResult<List<Book>>> GetBooks([FromHeader]string ConToken, int pageSize)
         {
-            //var books = await _bookRepository.GetByQueryAsync("select * from container");
             /// <summary>
             /// The continuation token has to be the newest one each time fetching
-            /// the next 5 items. pageSize is the number of items to fetch.
+            /// the next 5 items (Assuming, pageSize = 5). pageSize is the number of items to fetch.
             /// </summary>
-            var page = await _bookRepository.PageAsync(pageSize: pageSize, continuationToken: (ConToken == "empty") ? null : Regex.Unescape(ConToken));
-            return Ok(new { Code = "200", Status = "Ok", Data = new { ItemCount = page.Total, ConToken = page.Continuation, Items = page.Items } });
+            return await _retryPolicy.ExecuteAsync(async () =>
+            {
+                var page = await _bookRepository.PageAsync(pageSize: pageSize, continuationToken: (ConToken == "empty") ? null : Regex.Unescape(ConToken));
+                if (page != null) return Ok(new { Code = "200", Status = "Ok", Data = new { ItemCount = page.Total, ConToken = page.Continuation, Items = page.Items } });
+                return BadRequest(new { Code = "400", Status = "BadRequest", Data = "Unable to get books!" });
+            });
         }
         [Route("get/book")]
         [HttpGet]
-        public async Task<ActionResult<List<Book>>> GetBook(string bookid)
-        { 
+        public async Task<ActionResult<Book>> GetBook(string bookid, string genre)
+        {
             //var book = await _bookRepository.GetByQueryAsync($"select * from container b where b.id='{bookid}'");
             //var book = await _bookRepository.GetAsync(b => b.Id == bookid);
-            var book = await _bookRepository.GetAsync(bookid);
-            return Ok(new { Code = "200", Status = "Ok", Data = book });
+            return await _retryPolicy.ExecuteAsync(async () =>
+            {
+                var res = await _bookRepository.GetAsync(id: bookid, partitionKeyValue: genre);
+                if (res != null) return Ok(new { Code = "200", Status = "Ok", Data = res });
+                return BadRequest(new { Code = "400", Status = "BadRequest", Data = "Unable to get book!" });
+            });
         }
         [Route("update/book")]
         [HttpPost]
         public async Task<ActionResult> UpdateBook([FromForm]Book book)
         {
-            await _bookRepository.UpdateAsync(book);
-            return Ok(new { Code = "200", Status = "Ok", Data = "Book Updated" });
+            return await _retryPolicy.ExecuteAsync(async () =>
+            {
+                var res = await _bookRepository.UpdateAsync(book);
+                if (res != null) return Ok(new { Code = "200", Status = "Ok", Data = "Book Updated" });
+                return BadRequest(new { Code = "400", Status = "BadRequest", Data = "Unable to update book!" });
+            });
         }
         [Route("delete/book")]
         [HttpGet]
         public async Task<ActionResult> DeleteBook(string bookid)
         {
-            await _bookRepository.DeleteAsync(bookid);
-            return Ok(new { Code = "200", Status = "Ok", Data = "Book Deleted" });
+            return await _retryPolicy.ExecuteAsync(async () =>
+            {
+                await _bookRepository.DeleteAsync(bookid);
+                return Ok(new { Code = "200", Status = "Ok", Data = "Book Deleted" });
+            });
         }
     }
 }

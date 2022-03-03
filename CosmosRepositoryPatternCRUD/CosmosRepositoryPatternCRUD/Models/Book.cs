@@ -16,6 +16,10 @@ namespace CosmosRepositoryPatternCRUD.Models
         public string? Author { get; set; }
         [Required]
         public string? Genre { get; set; }
+        [Required]
+        public int Quantity { get; set; }
+        [Required]
+        public bool Price { get; set; }
         /// <summary>
         /// Items having same partition key value, in this case 'Genre'
         /// will be grouped together in the same logical partition.
