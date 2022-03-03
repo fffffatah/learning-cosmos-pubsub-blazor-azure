@@ -19,7 +19,7 @@ namespace CosmosRepositoryPatternCRUD.Models
         [Required]
         public int Quantity { get; set; }
         [Required]
-        public bool Price { get; set; }
+        public double Price { get; set; }
         /// <summary>
         /// Items having same partition key value, in this case 'Genre'
         /// will be grouped together in the same logical partition.
