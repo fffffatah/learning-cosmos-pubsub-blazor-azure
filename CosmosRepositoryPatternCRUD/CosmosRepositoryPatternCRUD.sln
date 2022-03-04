@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CosmosRepositoryPatternCRUD", "CosmosRepositoryPatternCRUD\CosmosRepositoryPatternCRUD.csproj", "{2C9DF5EB-EF9B-4A3D-B60C-8D269C25553E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CosmosRepositoryPatternCRUD", "CosmosRepositoryPatternCRUD\CosmosRepositoryPatternCRUD.csproj", "{2C9DF5EB-EF9B-4A3D-B60C-8D269C25553E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangeFeedDemo", "ChangeFeedDemo\ChangeFeedDemo.csproj", "{9AAB0B2D-078C-4267-AB80-E8CF6E0D7647}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2C9DF5EB-EF9B-4A3D-B60C-8D269C25553E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C9DF5EB-EF9B-4A3D-B60C-8D269C25553E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C9DF5EB-EF9B-4A3D-B60C-8D269C25553E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AAB0B2D-078C-4267-AB80-E8CF6E0D7647}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AAB0B2D-078C-4267-AB80-E8CF6E0D7647}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AAB0B2D-078C-4267-AB80-E8CF6E0D7647}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AAB0B2D-078C-4267-AB80-E8CF6E0D7647}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

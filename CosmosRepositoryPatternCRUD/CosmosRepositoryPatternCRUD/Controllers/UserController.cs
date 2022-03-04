@@ -33,5 +33,16 @@ namespace CosmosRepositoryPatternCRUD.Controllers
                 return BadRequest(new { Code = "400", Status = "BadRequest", Data = "Unable to add user!" });
             });
         }
+        [Route("get/user")]
+        [HttpGet]
+        public async Task<ActionResult<User>> GetUser(string Id)
+        {
+            return await _retryPolicy.ExecuteAsync(async () =>
+            {
+                var res = await _userRepository.GetAsync(Id);
+                if (res != null) return Ok(new { Code = "200", Status = "Ok", Data = res });
+                return NotFound(new { Code = "404", Status = "NotFound", Data = "User Not Found" });
+            });
+        }
     }
 }
