@@ -1,5 +1,6 @@
 ﻿using Microsoft.Azure.CosmosRepository;
 using Microsoft.Azure.CosmosRepository.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace CosmosRepositoryPatternCRUD.Models
 {
@@ -11,13 +12,17 @@ namespace CosmosRepositoryPatternCRUD.Models
         Delivered
     }
     [Container("orders")]
-    [PartitionKeyPath("/placed_at")]
+    [PartitionKeyPath("/PlacedAt")]
     public class Order : Item
     {
-        public DateTime PlacedAt { get; set; }
+        [Required]
+        public string? PlacedAt { get; set; }
+        [Required]
         public OrderStatuses Status { get; set; }
+        [Required]
         public User? OrderedBy { get; set; }
+        [Required]
         public List<Book>? Books { get; set; }
-        protected override string GetPartitionKeyValue() => PlacedAt.ToString();
+        protected override string GetPartitionKeyValue() => PlacedAt;
     }
 }

@@ -26,6 +26,7 @@ namespace CosmosRepositoryPatternCRUD.Controllers
         {
             order.Id = Guid.NewGuid().ToString();
             order.Type = "Order";
+            order.PlacedAt = DateTime.Now.ToString();
             return await _retryPolicy.ExecuteAsync(async () =>
             {
                 var res = await _orderRepository.CreateAsync(order);
