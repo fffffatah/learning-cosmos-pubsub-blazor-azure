@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using Polly;
 using Polly.Retry;
+using System.Linq.Expressions;
 
 namespace CosmosRepositoryPatternCRUD.Controllers
 {
@@ -47,6 +48,18 @@ namespace CosmosRepositoryPatternCRUD.Controllers
             return await _retryPolicy.ExecuteAsync(async () =>
             {
                 var page = await _bookRepository.PageAsync(pageSize: pageSize, continuationToken: (ConToken == "empty") ? null : Regex.Unescape(ConToken));
+                if (page != null) return Ok(new { Code = "200", Status = "Ok", Data = new { ItemCount = page.Total, ConToken = page.Continuation, Items = page.Items } });
+                return BadRequest(new { Code = "400", Status = "BadRequest", Data = "Unable to get books!" });
+            });
+        }
+        [Route("get/books/genre")]
+        [HttpGet]
+        public async Task<ActionResult<List<Book>>> GetBooksByGenre([FromHeader] string ConToken, int pageSize, string genre)
+        {
+            return await _retryPolicy.ExecuteAsync(async () =>
+            {
+                Expression<Func<Book, bool>> expression = b => b.Genre == genre;
+                var page = await _bookRepository.PageAsync(expression, pageSize: pageSize, continuationToken: (ConToken == "empty") ? null : Regex.Unescape(ConToken));
                 if (page != null) return Ok(new { Code = "200", Status = "Ok", Data = new { ItemCount = page.Total, ConToken = page.Continuation, Items = page.Items } });
                 return BadRequest(new { Code = "400", Status = "BadRequest", Data = "Unable to get books!" });
             });
