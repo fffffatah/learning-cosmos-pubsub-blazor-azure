@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
@@ -10,7 +11,7 @@ namespace ChangeFeedDemo
     public static class SendMail
     {
         [FunctionName("SendMail")]
-        public static void Run([CosmosDBTrigger(
+        public static async Task Run([CosmosDBTrigger(
             databaseName: "fffffatah",
             collectionName: "books",
             ConnectionStringSetting = "CosmosString",
@@ -21,7 +22,7 @@ namespace ChangeFeedDemo
             {
                 log.LogInformation("Documents modified " + input.Count);
                 log.LogInformation("First document Id " + input[0].Id);
-                SendGridHelper.Send("info@bs-23.com", "System", "ab.fatahmn@gmail.com", "Noorullah", "A Book Has Been Updated", "A Book Has Been Updated", "<b>A Book Has Been Updated</b>");
+                await SendGridHelper.Send("info@bs-23.com", "System", "ab.fatahmn@gmail.com", "Noorullah", "A Book Has Been Updated", "A Book Has Been Updated", "<b>A Book Has Been Updated</b>");
             }
         }
     }
