@@ -12,17 +12,16 @@ namespace CosmosRepositoryPatternCRUD.Models
         Delivered
     }
     [Container("orders")]
-    [PartitionKeyPath("/PlacedAt")]
+    [PartitionKeyPath("/id")]
     public class Order : Item
     {
         [Required]
-        public string? PlacedAt { get; set; }
+        public DateTime PlacedAt { get; set; }
         [Required]
         public OrderStatuses Status { get; set; }
         [Required]
         public User? OrderedBy { get; set; }
         [Required]
         public List<Book>? Books { get; set; }
-        protected override string GetPartitionKeyValue() => PlacedAt;
     }
 }

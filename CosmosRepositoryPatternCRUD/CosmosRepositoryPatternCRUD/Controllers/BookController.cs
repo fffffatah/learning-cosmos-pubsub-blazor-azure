@@ -111,6 +111,10 @@ namespace CosmosRepositoryPatternCRUD.Controllers
         {
             return await _retryPolicy.ExecuteAsync(async () =>
             {
+                /// <summary>
+                /// DeleteAsync can receive partition key as well for further
+                /// shortening the scope of the item to delete
+                /// </summary>
                 await _bookRepository.DeleteAsync(bookid);
                 return Ok(new { Code = "200", Status = "Ok", Data = "Book Deleted" });
             });

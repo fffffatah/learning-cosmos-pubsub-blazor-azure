@@ -20,18 +20,30 @@ namespace CosmosRepositoryPatternCRUD.Controllers
             _logger = logger;
             _retryPolicy = Policy<ActionResult>.Handle<HttpRequestException>().RetryAsync(retryCount: 5);
         }
+
         [Route("create/order")]
         [HttpPost]
         public async Task<ActionResult> AddOrder([FromForm] Order order)
         {
             order.Id = Guid.NewGuid().ToString();
             order.Type = "Order";
-            order.PlacedAt = DateTime.Now.ToString();
+            order.PlacedAt = DateTime.Now;
             return await _retryPolicy.ExecuteAsync(async () =>
             {
                 var res = await _orderRepository.CreateAsync(order);
                 if (res != null) return Ok(new { Code = "200", Status = "Ok", Data = "Order Added" });
                 return BadRequest(new { Code = "400", Status = "BadRequest", Data = "Unable to add order!" });
+            });
+        }
+
+        [Route("delete/order")]
+        [HttpGet]
+        public async Task<ActionResult> DeleteBook(string orderid)
+        {
+            return await _retryPolicy.ExecuteAsync(async () =>
+            {
+                await _orderRepository.DeleteAsync(orderid);
+                return Ok(new { Code = "200", Status = "Ok", Data = "Order Deleted" });
             });
         }
     }
