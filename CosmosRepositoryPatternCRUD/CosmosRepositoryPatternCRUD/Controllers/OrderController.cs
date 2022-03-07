@@ -36,9 +36,21 @@ namespace CosmosRepositoryPatternCRUD.Controllers
             });
         }
 
-        [Route("delete/order")]
+        [Route("get/order")]
         [HttpGet]
-        public async Task<ActionResult> DeleteBook(string orderid)
+        public async Task<ActionResult> GetOrder(string orderid)
+        {
+            return await _retryPolicy.ExecuteAsync(async () =>
+            {
+                var res = await _orderRepository.GetAsync(orderid);
+                if (res != null) return Ok(new { Code = "200", Status = "Ok", Data = res });
+                return NotFound(new { Code = "404", Status = "NotFound", Data = "Order Not Found" });
+            });
+        }
+
+        [Route("delete/order")]
+        [HttpDelete]
+        public async Task<ActionResult> DeleteOrder(string orderid)
         {
             return await _retryPolicy.ExecuteAsync(async () =>
             {

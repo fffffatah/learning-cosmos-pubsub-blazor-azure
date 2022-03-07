@@ -106,8 +106,8 @@ namespace CosmosRepositoryPatternCRUD.Controllers
         }
 
         [Route("delete/book")]
-        [HttpGet]
-        public async Task<ActionResult> DeleteBook(string bookid)
+        [HttpDelete]
+        public async Task<ActionResult> DeleteBook(string bookid, string genre)
         {
             return await _retryPolicy.ExecuteAsync(async () =>
             {
@@ -115,7 +115,7 @@ namespace CosmosRepositoryPatternCRUD.Controllers
                 /// DeleteAsync can receive partition key as well for further
                 /// shortening the scope of the item to delete
                 /// </summary>
-                await _bookRepository.DeleteAsync(bookid);
+                await _bookRepository.DeleteAsync(id: bookid, partitionKeyValue: genre);
                 return Ok(new { Code = "200", Status = "Ok", Data = "Book Deleted" });
             });
         }

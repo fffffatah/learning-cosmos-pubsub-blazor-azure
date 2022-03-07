@@ -35,11 +35,11 @@ namespace CosmosRepositoryPatternCRUD.Controllers
         }
         [Route("get/user")]
         [HttpGet]
-        public async Task<ActionResult<User>> GetUser(string Id)
+        public async Task<ActionResult<User>> GetUser(string id)
         {
             return await _retryPolicy.ExecuteAsync(async () =>
             {
-                var res = await _userRepository.GetAsync(Id);
+                var res = await _userRepository.GetAsync(id);
                 if (res != null) return Ok(new { Code = "200", Status = "Ok", Data = res });
                 return NotFound(new { Code = "404", Status = "NotFound", Data = "User Not Found" });
             });
